@@ -17,6 +17,7 @@ Upload your **abstracts (CSV or PDF)** and explore biomedical terms, trends, and
 - 📊 Top Keywords
 - 🔍 Keyword Search
 - 🧠 AI Summarizer
+- 📄 Abstract Viewer
 """)
 
 # --- Functions ---
@@ -66,7 +67,13 @@ if raw_text:
     words = cleaned.split()
     word_counts = Counter(words).most_common(20)
 
-    tab1, tab2, tab3, tab4 = st.tabs(["☁️ Word Cloud", "📊 Keywords", "🔍 Search", "🧠 Summarizer"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "☁️ Word Cloud", 
+    "📊 Keywords", 
+    "🔍 Search", 
+    "🧠 Summarizer", 
+    "📄 Abstract Viewer"
+])
 
     with tab1:
         st.subheader("☁️ Word Cloud")
@@ -113,4 +120,17 @@ if raw_text:
                             st.error("❌ Summarization failed. Try again or check your API key.")
                     except Exception as e:
                         st.error(f"❌ Error: {str(e)}")
+  with tab5:
+    st.subheader("📄 Browse Abstracts One by One")
+
+    if file_type == "CSV with Abstracts" and uploaded_file is not None:
+        if "abstract" in df.columns:
+            index = st.number_input("🔢 Choose abstract index:", min_value=0, max_value=len(df)-1, value=0, step=1)
+            st.markdown(f"**Title:** {df.iloc[index].get('title', 'N/A')}")
+            st.markdown(f"**Abstract:**\n\n{df.iloc[index]['abstract']}")
+        else:
+            st.warning("⚠️ No 'abstract' column found in the CSV.")
+    
+    elif file_type == "PDF File" and uploaded_pdf is not None:
+        st.text_area("📖 Extracted PDF Text:", raw_text, height=300)
 
