@@ -3,4 +3,4 @@ pandas
 matplotlib
 wordcloud
 PyPDF2
-
+requests
