@@ -17,8 +17,10 @@ try:
     from transformers import pipeline
     summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
     has_summarizer = True
-except Exception:
+except Exception as e:
+    summarizer = None
     has_summarizer = False
+    print("Transformer load failed:", e)
 
 # Set page title
 st.set_page_config(page_title="🧬 Bioinformatics Research Helper")
