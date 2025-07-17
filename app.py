@@ -113,8 +113,8 @@ if raw_text:
              #           st.success("Summary:")
               #          st.write(summary[0]['summary_text'])
 #
-                       st.download_button("💾 Download Summary", summary[0]['summary_text'], file_name="summary.txt")
-                except Exception as e:
+    #                   st.download_button("💾 Download Summary", summary[0]['summary_text'], file_name="summary.txt")
+    #            except Exception as e:
    #                     st.error(f"Summarization failed: {e}")
      #       else:
       #         st.warning("❗ Summarizer could not be loaded. Please check the model or try again late")
