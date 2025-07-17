@@ -3,6 +3,4 @@ pandas
 matplotlib
 wordcloud
 PyPDF2
-transformers==4.40.1
-torch==2.2.2+cpu
---extra-index-url https://download.pytorch.org/whl/cpu
+
