@@ -7,9 +7,8 @@ from collections import Counter
 from io import StringIO
 from PyPDF2 import PdfReader
 from transformers import pipeline
-
 # Read Hugging Face token from Streamlit secrets
-hf_token = st.secrets.get("HF_TOKEN", None)
+hf_token = st.secrets["HF_TOKEN"] if "HF_TOKEN" in st.secrets else None
 
 # Try to load summarizer
 try:
@@ -19,11 +18,12 @@ try:
     else:
         summarizer = None
         has_summarizer = False
-        st.warning("⚠️ Hugging Face token not found. Summarizer disabled.")
+        st.warning("⚠️ Hugging Face token not found in secrets. Summarizer is disabled.")
 except Exception as e:
     summarizer = None
     has_summarizer = False
-    st.error(f"⚠️ Failed to load summarizer: {e}")
+    st.error("⚠️ Failed to load summarizer. Check your token or model name.")
+
 
 # Set page title
 st.set_page_config(page_title="🧬 Bioinformatics Research Helper")
