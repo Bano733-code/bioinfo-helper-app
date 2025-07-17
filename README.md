@@ -1,6 +1,6 @@
 # 🧬 Bioinformatics Research Helper
 
-A final year Streamlit app to help researchers explore biomedical abstracts from PDFs or CSVs.
+A second year bioinformatics student Streamlit app to help researchers explore biomedical abstracts from PDFs or CSVs.
 
 ## 🔍 Features
 - ☁️ Word Cloud of top terms
@@ -25,7 +25,7 @@ A final year Streamlit app to help researchers explore biomedical abstracts from
 
 ## 👩‍💻 Author
 **Bano Rani**  
-Final Year Bioinformatics Student  
+2nd Year Bioinformatics Student  
 GitHub: [yourusername](https://github.com/yourusername) *(optional)*
 
 ---
