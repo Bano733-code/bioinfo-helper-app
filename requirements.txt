@@ -3,7 +3,4 @@ pandas
 matplotlib
 wordcloud
 PyPDF2
-transformers==4.38.2
-torch==2.1.0+cpu
-
 
