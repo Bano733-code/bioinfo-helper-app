@@ -8,8 +8,7 @@ import re
 from collections import Counter
 from io import StringIO
 from PyPDF2 import PdfReader
-from transformers import pipeline
-import torch
+
 
 
 # Load summarization pipeline (requires internet the first time)
