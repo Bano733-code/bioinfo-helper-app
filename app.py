@@ -13,14 +13,14 @@ from PyPDF2 import PdfReader
 
 # Load summarization pipeline (requires internet the first time)
 #summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
-try:
-    from transformers import pipeline
-    summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
-    has_summarizer = True
-except Exception as e:
-    summarizer = None
-    has_summarizer = False
-    print("Transformer load failed:", e)
+#try:
+ #   from transformers import pipeline
+  #  summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+   # has_summarizer = True
+#except Exception as e:
+ #   summarizer = None
+  #  has_summarizer = False
+   # print("Transformer load failed:", e)
 
 # Set page title
 st.set_page_config(page_title="🧬 Bioinformatics Research Helper")
@@ -102,20 +102,22 @@ if raw_text:
                 st.info("No matches found.")
 
     with tab4:
-        st.subheader("Summarize Extracted Text")
-        if has_summarizer:
-            if st.button("🧠 Summarize"):
-                with st.spinner("Summarizing..."):
-                    try:
-                        summary = summarizer(raw_text[:1000], max_length=100, min_length=30, do_sample=False)
-                        st.success("Summary:")
-                        st.write(summary[0]['summary_text'])
+            st.warning("🧠 Summarizer requires internet and heavy models. Try offline features above.")
 
-                        st.download_button("💾 Download Summary", summary[0]['summary_text'], file_name="summary.txt")
-                    except Exception as e:
-                        st.error(f"Summarization failed: {e}")
-            else:
-               st.warning("❗ Summarizer could not be loaded. Please check the model or try again late")
-        else:
-           st.info("Upload a file to begin analysis.")
+        #st.subheader("Summarize Extracted Text")
+        #if has_summarizer:
+         #   if st.button("🧠 Summarize"):
+          #      with st.spinner("Summarizing..."):
+           #         try:
+            #            summary = summarizer(raw_text[:1000], max_length=100, min_length=30, do_sample=False)
+             #           st.success("Summary:")
+              #          st.write(summary[0]['summary_text'])
+#
+                       st.download_button("💾 Download Summary", summary[0]['summary_text'], file_name="summary.txt")
+                except Exception as e:
+   #                     st.error(f"Summarization failed: {e}")
+     #       else:
+      #         st.warning("❗ Summarizer could not be loaded. Please check the model or try again late")
+       # else:
+        #   st.info("Upload a file to begin analysis.")"""
 
