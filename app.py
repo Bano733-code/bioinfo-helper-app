@@ -6,23 +6,30 @@ import re
 from collections import Counter
 from io import StringIO
 from PyPDF2 import PdfReader
-from transformers import pipeline
-# Read Hugging Face token from Streamlit secrets
-hf_token = st.secrets["HF_TOKEN"] if "HF_TOKEN" in st.secrets else None
+raw_text = st.text_area("📝 Paste abstract or full text here for summarization")
 
-# Try to load summarizer
-try:
-    if hf_token:
-        summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6", use_auth_token=hf_token)
-        has_summarizer = True
+import requests
+
+def hf_summarize(text, token):
+    API_URL = "https://api-inference.huggingface.co/models/sshleifer/distilbart-cnn-12-6"
+    headers = {"Authorization": f"Bearer {token}"}
+    payload = {"inputs": text[:1000], "parameters": {"max_length":100, "min_length":30}}
+    res = requests.post(API_URL, headers=headers, json=payload)
+    return res.json()[0]["summary_text"] if res.status_code == 200 else None
+
+hf_token = st.secrets.get("HF_TOKEN", None)
+
+with tab4:
+    if hf_token and st.button("🧠 Summarize"):
+        summary = hf_summarize(raw_text, hf_token)
+        if summary:
+            st.subheader("🔍 Summary")
+            st.write(summary)
+        else:
+            st.error("⚠️ Summarization failed via API.")
     else:
-        summarizer = None
-        has_summarizer = False
-        st.warning("⚠️ Hugging Face token not found in secrets. Summarizer is disabled.")
-except Exception as e:
-    summarizer = None
-    has_summarizer = False
-    st.error("⚠️ Failed to load summarizer. Check your token or model name.")
+        st.warning("🔐 Set HF_TOKEN in secrets to enable summarizer.")
+
 
 
 # Set page title
